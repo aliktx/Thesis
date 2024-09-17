@@ -1,0 +1,25 @@
+import numpy as np
+
+# Function to calculate Cronbach's alpha
+def cronbach_alpha(data):
+    # Number of items (trials)
+    k = data.shape[1]
+    
+    # Variance of each item
+    item_vars = data.var(axis=0, ddof=1)
+    
+    # Variance of total scores (sum of all trials for each participant)
+    total_var = data.sum(axis=1).var(ddof=1)
+    
+    # Cronbach's alpha formula
+    alpha = (k / (k - 1)) * (1 - (item_vars.sum() / total_var))
+    
+    return alpha
+
+# Select only the trial columns (ignoring participant ID)
+trial_data = data_sheet4.iloc[:, 1:]
+
+# Calculate Cronbach's alpha
+alpha_value = cronbach_alpha(trial_data)
+
+alpha_value
